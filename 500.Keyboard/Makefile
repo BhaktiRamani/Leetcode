@@ -5,19 +5,10 @@ build:main.c
 	@./main
 
 git-all:
-	add
-	commit
-	push
-
-
-add:
 	git add .
+	git commit -m "$(COMMIT_MSG)"
+	git push origin master
 
-commit:
-	git commit -m "$COMMIT_MSG"
-
-push:
-	git push origin main
 
 clean:
 	rm -f *.o
