@@ -1,7 +1,7 @@
 all: clean build
 
 build:main.c
-	@gcc main.c -o main
+	@gcc main.c -g -o main
 	@./main
 
 git-all:
