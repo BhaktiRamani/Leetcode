@@ -6,7 +6,7 @@ build:main.c
 
 git-all:
 	git add .
-	git commit -m "$(COMMIT_MSG)"
+	git commit -m "$(m)"
 	git push origin master
 
 

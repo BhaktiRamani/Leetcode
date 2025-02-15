@@ -1,4 +1,4 @@
-all:build
+all: clean build
 
 build:main.c
 	@gcc main.c -o main
