@@ -90,11 +90,6 @@ struct data s = {
     .ptr = NULL,
 };
 
-void fun(float *z){
-    // struct data
-    // z
-    // s.x;
-}
 typedef struct name{
     int x;
     char * str;
@@ -102,7 +97,12 @@ typedef struct name{
 
 int main()
 {
-    char *a;
+    char *a = "hello";
+    printf("a : %s\n", a);
+    char **aa = &a;
+    printf("aa : %s\n", *aa);
+    char ***aaa = &aa;
+    printf("aa : %s\n", *aa);
     char b[2];
 
     char **A;

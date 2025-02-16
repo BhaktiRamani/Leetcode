@@ -2,8 +2,9 @@
 create:
 	@read -p "Enter directory name: " dir_name; \
 	mkdir -p $$dir_name \
-	&& touch $$dir_name/$${main}.c
-	cd $$dir_name
+	&& touch $$dir_name/$${main}.c \
+	cd $$dir_name \
+
 
 git-all:
 	git add .
