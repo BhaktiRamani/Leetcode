@@ -43,30 +43,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // container_of(struct data, z, 0x00)-> struct data x
 #define container_of(structname, member, member_address) 
 
 
-//poiter to a funtion to that pointes to a fnciton pointer that return
+//poiter to a funtion to that pointes to a fnciton pointer that returns a pointer
 
 // Stack
 
