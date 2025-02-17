@@ -36,7 +36,7 @@ int findDuplicate(int* nums, int numsSize) {
 }
 int main()
 {
-    int nums[4] = {1, 2, 3, 3};
-    int result = findDuplicate(nums, 4);
+    int nums[5] = {3, 3, 3, 3, 3};
+    int result = findDuplicate(nums, 5);
     printf("Result = %d\n", result);
 }
