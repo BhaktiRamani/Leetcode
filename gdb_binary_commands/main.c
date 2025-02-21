@@ -14,4 +14,6 @@ int main()
     char*str = "Hello";
     printf("Hello World\n");
     my_func();
+    printf("Hello World\n");
+    printf("Hello World\n");
 }
