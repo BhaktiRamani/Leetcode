@@ -44,85 +44,91 @@
 // It does not matter what you leave beyond the returned k (hence they are underscores).
 
 #include<stdio.h>
-#define DASH _
-int removeElement1(int* nums, int numsSize, int val) {
-    int i, j;
-    i = 0;
-    while (i < numsSize && nums[i] != val) i ++;
-    printf("i = %d\n", i);
-    for (j = i + 1; j < numsSize; j ++) {
-        if (nums[j] != val) {
-            nums[i ++] = nums[j];
-        }
-    }
-    return i;
-}
+
 
 
 int removeElement(int* nums, int numsSize, int val) {
     
-    int n = 0;
+    int *read_ptr = nums;
+    int *swap_ptr = nums + 1;
+    int size = sizeof(nums)/sizeof(nums[0]);
+    int occurance = 0;
+
+    int swap_ptr_position = 1;
     for(int i = 0; i < numsSize; i++)
     {
-        if(nums[n] != val)
+        printf("\n\nS Read ptr %d Swap ptr %d Swap ptr position %d\n", *read_ptr, *swap_ptr, swap_ptr_position);
+        if(*read_ptr == val)
         {
-            nums[n] = nums[i];
-            n +=1;
-        }
-
-        // if(nums[i] == val)
-        // {
+            while(*swap_ptr == val)    swap_ptr++; swap_ptr_position++;
             
-        //     if(nums[i + 1] == val)
-        //     {
-        //         int temp = nums[i];
-        //         nums[i] = nums[i + 2];
-        //         nums[i + 2] = temp;
-        //     }
-        //     else
-        //     {
-        //         int temp = nums[i];
-        //         nums[i] = nums[i + 1];
-        //         nums[i + 1] = temp;
-        //     }
-
-        // }
+            //swap
+            *swap_ptr = *swap_ptr ^ *read_ptr;
+            *read_ptr = *swap_ptr ^ *read_ptr;
+            *swap_ptr = *swap_ptr ^ *read_ptr;
+             if(swap_ptr_position == numsSize)    break;
+        }
+        read_ptr++;
+        swap_ptr++;
+        swap_ptr_position++;
+        printf("E Read ptr %d Swap ptr %d Swap ptr position %d\n", *read_ptr, *swap_ptr, swap_ptr_position);
+        for(int j=0; j<numsSize; j++){
+            printf("%d  ", nums[j]);
+        }
     }
-
-
-    // for(int i = 0; i < numsSize; i++)
-    // {
-    //     if(nums[i] == val)
-    //     {
-    //         for(int j = i; j < numsSize; j++)
-    //         {
-    //             printf("_ ");
-    //         }
-    //         printf("\n");
-    //         return result;
-    //         break;
-    //     }
-    //     printf("%d ", nums[i]);
-    //     result++;
-    // }
-    for(int i = 0; i< n; i++)
-    {
-        printf("%d ", nums[i]);
-    }
-
-    int occurance = numsSize - n;
-    for(int i = 0; i< occurance; i++)
-    {
-        printf("_ ");
+    for(int j=0; j<numsSize; j++){
+        if(nums[j] == val)
+        {
+            printf("_ ");
+        }
+        else{
+            printf("%d  ", nums[j]);
+        }
+        
     }
 
     printf("\n");
-    return n;
+    return 0;
 }
 
 int main()
 {
     int arr[8] = {0, 1, 2, 2, 3, 0, 4, 2};
-    int result = removeElement1(arr, 8, 2);
-    printf("result = %d\n", result);
+    removeElement(arr, 8, 2);
+    // int *read_pointer = arr;
+    // int *swap_pointer = arr+1;
+    // int size = sizeof(arr)/sizeof(arr[0]);
+    // int overflow = 1;
+
+    // for (int i=0 ; i<size && overflow < size; i++){
+    //     printf("\nread ptr %d, swap ptr %d\n", *read_pointer, *swap_pointer);
+    //     if(*read_pointer == 2){
+    //         while(*swap_pointer == 2){
+    //             swap_pointer++;
+    //             overflow++;
+    //         }
+
+    //         if(overflow == size) break;
+
+    //         printf("s read ptr %d, swap ptr %d\n", *read_pointer, *swap_pointer);
+    //         // printf("we are in swap\n");
+    //         *swap_pointer = *read_pointer ^ *swap_pointer;
+    //         *read_pointer = *read_pointer ^ *swap_pointer;
+    //         *swap_pointer = *read_pointer ^ *swap_pointer;
+    //         printf("s read ptr %d, swap ptr %d\n\n", *read_pointer, *swap_pointer);
+    //         for(int j=0; j<size; j++){
+    //             printf("%d ", arr[j]);
+    //         }
+
+    //     }
+    //     read_pointer++;
+    //     swap_pointer++;
+    //     overflow++;
+    // }
+
+
+
+
+    // int result = removeElement1(arr, 8, 2);
+    // printf("result = %d\n", result);
 }
