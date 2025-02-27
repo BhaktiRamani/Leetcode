@@ -1,7 +1,7 @@
 TARGET=$(basename $(firstword $(MAKECMDGOALS)))
 # Source and object files
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.cpp=.o)
 
 all: clean build
 
@@ -12,8 +12,8 @@ create:
 		echo "$(TARGET).c created."; \
 	fi
 
-build:$(TARGET).c
-	@gcc $(TARGET).c -g -o $(TARGET)
+build:$(TARGET).cpp
+	@g++ $(TARGET).cpp -g -o $(TARGET)
 	@./$(TARGET)
 
 git-all:
@@ -23,11 +23,7 @@ git-all:
 
 .PHONY : clean
 
-#clean:
-#	rm -f $(OBJ)
-
-
-
 clean:
-	rm -f *.o
+	rm -f $(OBJ) $(TARGET)
+
 
