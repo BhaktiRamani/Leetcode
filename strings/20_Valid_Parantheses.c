@@ -37,37 +37,81 @@
 
 #define BOOL(x) ((x==0) ? "false" : "true")
 
+typedef struct stack{
+    char buffer[8];
+    int len;
+}stack_t;
 
-bool isValid(char* s) {
-    int str_len = strlen(s);
+stack_t st = {
+    .len = 7,
+};
 
-    printf("Str_len %d\n", str_len);
-
-    if(str_len % 2 != 0) return false;
-
-    int same = 0;
-    for(int i = 0, j = 0; i < str_len/2; i++, j=j+2)
-    {
-        printf("here s[i] %c s[i+1] %c (int)s[i] %d  (int)s[i+1] %d  i %d str_len/2 %d\n", s[j], s[j+1], (int)s[j], (int)s[j+1], j, str_len/2);
-        if((int)s[j] == ((int)s[j+1] + 1))
-        {
-            same += 1;
-        }
-    }
-
-    printf("same %d\n", same);
-    if(same == str_len/2)   return true;
-    return false;
-
+void push(char data)
+{
+    st.buffer[st.len] = data;
+    printf("pushed %c \n", st.buffer[st.len]);
+    st.len--;
 
 }
 
+char pop()
+{
+    st.len++;
+    char data = st.buffer[st.len];
+    printf("Popping out %c with len %d\n", st.buffer[st.len], st.len);
+    return data;
+}
+
+bool isValid(char* s) {
+
+    for(int i = 0; i< strlen(s); i++)
+    {
+        push(s[i]);
+    }
+    printf("\n");
+    for(int j = 7; j > 1; j--)
+    {
+        printf("%c ", st.buffer[j]);
+    }
+    printf("\n");
+    for(int i = 0; i<strlen(s); i++)
+    {   
+        char br = s[i];
+
+        for(int j = 7; j > 1; j--)
+        {
+            printf("%c ", st.buffer[j]);
+        }
+        printf("\n");
+        if(br == '(' || br == '[' || br == '{')
+        {
+            char popped = pop();
+            if((int)(popped + br) == 82 || (int)(popped + br) == 248 || (int)(popped + br) == 184 )
+            {
+                continue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 int main()
 {
+    
     char c = '{';
     char d = '}';
     int a = c;
-    printf("%d  %d\n", a, (int)d);
+    // push(c);
+    // printf("char %c len %d \n", st.buffer[st.len + 1], st.len);
+    // push(d);
+    // printf("char %c len %d \n", st.buffer[st.len + 1], st.len);
+
+    // char popped = pop();
+    // printf("len %d popped %c\n", st.len, popped);
+    // printf("%d  %d\n", a, (int)d);
 
     char str[6] = {'(', ')', '{', '}', '[', ']'};
     bool status = isValid(str);
