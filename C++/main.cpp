@@ -123,7 +123,8 @@ class Human
             cout << "This is Human class" << endl;
         }
 
-        // setters
+        // setters - private variable can be set but here there should be some logic to prevent wrong usage
+    
         void set_work_ex(int x)
         {
             work_ex = x;
