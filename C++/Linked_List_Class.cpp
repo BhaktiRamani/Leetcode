@@ -47,13 +47,15 @@ class LL{
         void print_LL()
         {
             node<T>* temp = head;
-            while(temp != NULL)
+            while(temp != nullptr)
             {
                 cout << temp -> data << " ";
                 temp = temp -> next;
             }
             cout << endl;
         }
+
+        // use destructor to free the allocated memory
         
 
 };

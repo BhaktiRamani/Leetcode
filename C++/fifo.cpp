@@ -21,7 +21,7 @@ class fifo{
 
         void push(T data)
         {
-            if(write_index == MAX_LEN)
+            if(current_len == MAX_LEN)
             {
                 cout << "Fifo is full" << endl;
                 return;
@@ -37,13 +37,23 @@ class fifo{
             if(current_len == 0)
             {
                 cout << "FIFO is empty" << endl;
-                return -1;
+                return T();
             }
             T element = array[read_index];
             read_index = (read_index + 1) % MAX_LEN;
             current_len--;
             cout << "Popping out " << element << endl;
             return element;
+        }
+
+        bool isEmpty() const
+        {
+            return current_len == 0;
+        }
+
+        bool isFull() const
+        {
+            return current_len == MAX_LEN;
         }
 
         void info()
