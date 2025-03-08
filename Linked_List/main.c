@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node{
+typedef struct _node{
     int data;
-    struct node* next;
-}node_t;
+    struct _node* next;
+}_node_t;
 
-int add_elements(node_t *head, int data);
-node_t* create_LL();
-void print_LL(node_t* head);
-void add_any_elements(node_t *head, void* data_v, int data_len);
+int add_elements(_node_t *head, int data);
+_node_t* create_LL();
+void print_LL(_node_t* head);
+void add_any_elements(_node_t *head, void* data_v, int data_len);
 
 int main()
 {
-    node_t* head = create_LL();
+    _node_t* head = create_LL();
     // add_elements(head, 1);
     // add_elements(head, 2);
     // add_elements(head, 3);
@@ -31,10 +31,10 @@ int main()
     printf("\n");
 }
 
-node_t* create_LL()
+_node_t* create_LL()
 {
-    node_t *head = NULL;
-    head = (node_t*)malloc(sizeof(node_t));
+    _node_t *head = NULL;
+    head = (_node_t*)malloc(sizeof(_node_t));
 
         
     if(head == NULL) return 0;
@@ -45,9 +45,9 @@ node_t* create_LL()
     return head;
 }
 
-void add_any_elements(node_t *head, void* data_v, int data_len)
+void add_any_elements(_node_t *head, void* data_v, int data_len)
 {
-    node_t *prev;
+    _node_t *prev;
 
     char* data = (char *)data_v;
     
@@ -64,7 +64,7 @@ void add_any_elements(node_t *head, void* data_v, int data_len)
         else if(head -> data != 0 && head -> next == NULL)
         {
             
-            node_t *temp = (node_t*)malloc(sizeof(node_t));
+            _node_t *temp = (_node_t*)malloc(sizeof(_node_t));
             printf("data %c\n", *data);
             temp -> data = *data;
             temp -> next == NULL;
@@ -75,7 +75,7 @@ void add_any_elements(node_t *head, void* data_v, int data_len)
         }
         else
         {
-            node_t *temp = (node_t*)malloc(sizeof(node_t));
+            _node_t *temp = (_node_t*)malloc(sizeof(_node_t));
             printf("data %c\n", *data);
             temp -> data = *data;
             temp -> next == NULL;
@@ -89,9 +89,9 @@ void add_any_elements(node_t *head, void* data_v, int data_len)
 
 }
 
-int add_elements(node_t *head, int data)
+int add_elements(_node_t *head, int data)
 {
-    node_t *current;
+    _node_t *current;
     if(head -> data == 0 && head -> next == NULL)
     {
         
@@ -102,7 +102,7 @@ int add_elements(node_t *head, int data)
     else if(head -> data != 0 && head -> next == NULL)
     {
      
-        node_t *temp = (node_t *)malloc(sizeof(node_t));
+        _node_t *temp = (_node_t *)malloc(sizeof(_node_t));
         temp -> data = data;
         temp -> next = NULL;
         head -> next = temp;
@@ -112,7 +112,7 @@ int add_elements(node_t *head, int data)
     else
     {
 
-        node_t *temp = (node_t *)malloc(sizeof(node_t));
+        _node_t *temp = (_node_t *)malloc(sizeof(_node_t));
         temp -> data = data;
         temp -> next = NULL;
         current -> next = temp;
@@ -120,9 +120,9 @@ int add_elements(node_t *head, int data)
     }
 }
 
-void print_LL(node_t *head)
+void print_LL(_node_t *head)
 {
-    node_t *temp = head;
+    _node_t *temp = head;
     while(temp != NULL)
     {
         printf("%c -> ", temp -> data);
