@@ -20,10 +20,22 @@ class fifo_lifo:
             self._len -= 1
             data = self._buffer[self._len] 
             return data
+        return None
         
     def print_lifo(self):
         for i in range(self._len):
             print(self._buffer[i], " ")
+            
+    def pull(self):
+        if(not self.isEmpty()):
+            data = self._buffer[0]
+            return data
+        return None
+    
+    def print_fifo(self):
+        """Prints queue (FIFO order)."""
+        print("Queue (FIFO):", " -> ".join(map(str, self._buffer)))
+            
             
     
         
@@ -34,7 +46,7 @@ stack.push(2)
 stack.push(3)
 stack.push(4)
 
-stack.pop()
+print("Pulled element : ", stack.pull())
 
 stack.print_lifo()
 
