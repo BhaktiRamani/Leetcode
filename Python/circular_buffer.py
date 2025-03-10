@@ -30,7 +30,7 @@ class CircularBuffer:
             return
         
         data = self.buffer[self.read_Index]
-        self.read_Index = (self.read_Index + 1)%self.read_Index
+        self.read_Index = (self.read_Index + 1)%self.max_len
         self.count -=1
         return data
     
@@ -52,12 +52,19 @@ cb.enqueue(2)
 cb.enqueue(3)
 cb.enqueue(4)
 cb.enqueue(5)
-#cb.enqueue(6)
+cb.enqueue(6)
 
+cb.display()
+
+cb.dequeue()
+cb.dequeue()
 cb.dequeue()
 
 cb.display()
     
-            
+cb.enqueue(1)
+cb.enqueue(2)
+cb.enqueue(3)   
+cb.display() 
            
     
