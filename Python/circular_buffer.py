@@ -52,7 +52,9 @@ cb.enqueue(2)
 cb.enqueue(3)
 cb.enqueue(4)
 cb.enqueue(5)
-cb.enqueue(6)
+#cb.enqueue(6)
+
+cb.dequeue()
 
 cb.display()
     
