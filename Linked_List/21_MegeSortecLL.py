@@ -107,6 +107,19 @@ class LinkedList():
     def delete_end(self):
         self.delete_node(0xFF)
         
+    def peek(self, index):
+        temp = self.head
+        position = 0
+        while position < index and temp is not None:
+            temp = temp._next
+            position += 1
+        #print(f"peek : {temp.data}")
+        
+        if temp is not None:
+            return temp.data
+        else:
+            return None
+        
     def reverse_LL(self):
         prev = None
         current = self.head
@@ -124,35 +137,6 @@ class LinkedList():
         current = next
         next = current._next
         
-    def merge_node(self):
-        temp = self.head
-        while temp._next != None:
-            temp = temp._next
-            
-        temp._next = self.head._next
-        
-        fast = self.head
-        slow = self.head
-        
-        while fast is not None and fast._next is not None:
-            fast = fast._next._next
-            slow = slow._next
-            
-            if(slow.data == fast.data):
-                print("There is inside loop")
-                return
-            
-        print("there is no loop")
-        
-    def mid_point(self):
-        fast = self.head
-        slow = self.head
-        while fast is not None and fast._next is not None :
-            fast = fast._next._next
-            slow = slow._next
-        print(f"Mid point : {slow.data}")
-        return slow.data
-        
          
     def print_ll(self):
         temp = self.head
@@ -162,21 +146,43 @@ class LinkedList():
             
             
             
+ll1 = LinkedList()
+ll1.add(1)
+ll1.add(2)
+ll1.add(4)
+ll1.peek(2)
+
+ll1.print_ll()
+
+print(" ")
+ll2 = LinkedList()
+ll2.add(3)
+ll2.add(5)
+ll2.print_ll()
+
 ll = LinkedList()
-ll.add(1)
-ll.add(2)
-ll.add(3)
-ll.add(4)
-# ll.add(5)
-# ll.merge_node()
-ll.mid_point()
+
+for i in range(5):
+    if ll1.peek(i) == None or ll2.peek(i) == None:
+        break
+    if ll1.peek(i) == ll2.peek(i):
+        ll.add(ll1.peek(i))
+        ll.add(ll2.peek(i))
+        
+    elif ll1.peek(i) < ll2.peek(i):
+        ll.add(ll1.peek(i))
+        ll.add(ll2.peek(i))
+        
+    else:
+        ll.add(ll2.peek(i))
+        ll.add(ll1.peek(i))
+        
+print("merged : ")
+ll.print_ll()
+        
+    
 
 
-
-#ll.print_ll()
-
-
-#ll.reverse_LL()
 
 
             
