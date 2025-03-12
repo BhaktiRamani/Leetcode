@@ -20,6 +20,7 @@
 
 s = ["h","e","l","l","o"]
 
+print(s[::-1])
 left = 0
 right = len(s) - 1
 print(len(s))
@@ -33,5 +34,5 @@ for i in range(int((len(s) - 1)/2)):
     right -= 1
     
     
-# print(s[::-1])
+print(s[::-1])
 print(s)

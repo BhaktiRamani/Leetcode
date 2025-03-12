@@ -110,19 +110,14 @@ class LinkedList():
     def reverse_LL(self):
         prev = None
         current = self.head
-        next = current._next
         
-        print(f"Current._next : {current._next}")
-        temp = self.head
-        while temp._next != None:
-            temp = temp._next
-            
-        prev = temp
-        current._next = prev
-        print(f"Current._next : {current._next}")
-        prev = current
-        current = next
-        next = current._next
+        while current != None:
+            next = current._next
+            current._next = prev
+            prev = current
+            current = next
+        
+        self.head = prev
         
     def merge_node(self):
         temp = self.head
