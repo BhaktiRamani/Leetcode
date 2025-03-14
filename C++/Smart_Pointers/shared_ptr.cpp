@@ -22,6 +22,7 @@ class human{
 };
 
 // they all are pointing to a same memory - will be deleted after all the pointers goes out of scope
+// uses ref count - when ref countgoes to ZERO - it deletes the memory
 int main()
 {
     //shared ownership

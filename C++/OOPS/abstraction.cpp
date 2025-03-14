@@ -30,6 +30,7 @@ class dog : public animal{
 int main()
 {   
     cout << endl;
+   //animal a;  // will throw an error
     dog d;
     animal &a = d;
     a.sound();

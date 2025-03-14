@@ -78,7 +78,7 @@ class school : public human{
 
         void output()
         {
-            cout << "This is school class" << endl;
+            cout << "This is a school class" << endl;
         }
 };
 
@@ -92,6 +92,10 @@ int main()
     //by reference
     human &h = s;
     h.output();
+
+    human hum;
+    hum.output();   // will return or print nothing because hum.output points to a virtual function
+    // and since hum points to a no child - virtual function has nothing to execute
 
 }
 
