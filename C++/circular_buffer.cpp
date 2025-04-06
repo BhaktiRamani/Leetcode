@@ -21,14 +21,17 @@ class circular_buffer{
         }
         void enqueue(T data)
         {
-            if(!isFull())
+            if(isFull())
             {
-                buffer[write_index] = data;
-                write_index = (write_index + 1) & capacity;
-                len += 1;
-                return;
+                read_index = (read_index + 1) % capacity;
+                cout << "Buffer is full" << endl;
             }
-            cout << "Buffer is full" << endl;
+       
+            buffer[write_index] = data;
+            write_index = (write_index + 1) % capacity;
+            if(len < capacity) len +=1;
+        
+
             return;
         }
 
@@ -37,7 +40,7 @@ class circular_buffer{
             if(!isEmpty())
             {
                 T data = buffer[read_index];
-                read_index = (read_index + 1) & capacity;
+                read_index = (read_index + 1) % capacity;
                 len -= 1;
                 return data;
             }
@@ -51,8 +54,10 @@ class circular_buffer{
             {
                 for(int i = 0; i < len; i++)
                 {
-                    cout << buffer[len] << " " << endl;
+                    int index = (read_index + i) % capacity;  // Correct circular indexing
+                    cout << buffer[index] << " ";
                 }
+                cout << endl;
             }
         }
 
@@ -64,8 +69,6 @@ class circular_buffer{
 
         bool isFull()
         {
-            cout << len << capacity << endl;
-            cout << "result " << (len == capacity) << endl;
             return len == capacity;
         }
 
@@ -78,6 +81,7 @@ int main()
     cb.enqueue(1);
     cb.enqueue(2);
     cb.enqueue(3);
+    cb.dequeue();
     cb.print_cb();
 
     

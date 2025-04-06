@@ -19,7 +19,7 @@ print(hey, hey.upper())
 print(hey.count(''))
 print(hey.count("e"))
 
-# String can be printed multiple types by multiplication
+# String can be printed multiple times by multiplication
 print(hey*3)
 print(hey + hey)
 
@@ -65,7 +65,7 @@ while i < 5:
 print()
 
 # Sets
-s = { 3, 1, 1, 3, 4,5}
+s = { 3, 1, 1, 3, 4, 5}
 print(s)
 # it also have some classes like append and pop like string
 
@@ -121,10 +121,11 @@ except:
     print("oops, exception")
     
 # Lamda function, basically one line function
+# lamda parameters : operation
 x = lambda x,y:x+y
 print(x(1, 2))
 
-# map
+# map(lamda func, parameter for lamda)
 x = [1, 2, 3, 4, 5]
 mp = map(lambda i : i + 2, x)
 print(list(mp))

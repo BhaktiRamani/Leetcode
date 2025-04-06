@@ -22,7 +22,7 @@ class car(vehicle):
         
         
     def stop(self):
-        print("Car stopped")
+        print(self._name, "stopped")
         
 c = car("Swift")
 c.start()

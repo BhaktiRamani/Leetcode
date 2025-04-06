@@ -95,7 +95,7 @@ class lifo_fifo{
                 // Issuew
                 for(int i = pull_index; i <= current_len ; i++)
                 {
-                    cout << buffer[i] << " " << endl;
+                    cout << buffer[i] << " ";
                 }
                 cout << "Current len : " << current_len << endl;
                 return;

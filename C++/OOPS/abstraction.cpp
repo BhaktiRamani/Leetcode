@@ -7,6 +7,10 @@ using namespace std;
     it has to point to a child class which uses that virtual function
 
     const override function is used to declare virtual function in child class
+
+    basically - we do not want to show main class(animal) so we are putting virtual function it it
+
+    that way - we will not be able to define main class and it needs a reference(child) class to point to.
 */
 
 class animal{

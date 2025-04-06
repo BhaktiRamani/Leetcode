@@ -26,6 +26,25 @@ int strStr(char* haystack, char* needle) {
     int count = 0;
     int result = 0;
     
+    // char* p = haystack;
+    // char *n = needle;
+
+    // int index = 0;
+    // while(*p == *n)
+    // {
+    //     p++;
+    //     n++;
+    //     index++;
+    // }
+
+    // if(*n == '\0')
+    // {
+    //     return index;
+    // }
+    // else{
+    //     return -1;
+    // }
+
     for(int i = 0; i< strlen(haystack); i++)
     {
         printf("Haystack %c Needle %c Count %d Ptr_h %c\n", haystack[i], needle[count], count, *ptr_h);
@@ -56,7 +75,7 @@ int strStr(char* haystack, char* needle) {
 int main()
 {
     char *str1 = "sadbutsad";
-    char *str2 = "tsad";
+    char *str2 = "sad";
     int occurance = strStr(str1, str2);
     printf("Occurance %d\n", occurance);
 }

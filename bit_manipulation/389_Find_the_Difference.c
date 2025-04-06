@@ -22,7 +22,6 @@
 char findTheDifference(char* s, char* t) {
     while(*s == *t)
     {   
-
         s++;
         t++;
     }
@@ -31,11 +30,11 @@ char findTheDifference(char* s, char* t) {
 }
 int main()
 {
-    char *s = "";
-    char *t = "y";
+    char *s = "bhakti";
+    char *t = "bhaktir";
   
     char r = findTheDifference(s, t);
-    printf("r = %c\n", r);
+    printf("result = %c\n", r);
 }
 
 

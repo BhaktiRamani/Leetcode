@@ -83,6 +83,42 @@ class school : public human{
 };
 
 
+class shape{
+    public:
+        virtual void area(){}
+};
+
+class circle : public shape{
+    private:
+        int radius;
+
+    public:
+        circle(int radius){
+            this -> radius = radius;
+        }
+
+        void area()
+        {
+            cout << "Circle area :" << 3.14*this->radius*this->radius << endl;
+
+        }
+};
+
+class square : public shape{
+    private:
+        int len;
+
+    public:
+        square(int len){
+            this -> len = len;
+        }
+
+        void area()
+        {
+            cout << "Square area : " << this-> len* this-> len << endl;
+        }
+};
+
 int main()
 {
     school s("Bhakti", 22, "Atmiya");
@@ -97,5 +133,10 @@ int main()
     hum.output();   // will return or print nothing because hum.output points to a virtual function
     // and since hum points to a no child - virtual function has nothing to execute
 
+    square sq(5);
+    circle c(3);
+
+    sq.area();
+    c.area();
 }
 

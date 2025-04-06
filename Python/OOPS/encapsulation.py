@@ -3,8 +3,9 @@
 
 class BankAccount:
     def __init__(self, owner, balance=0):   #balance=0 means it is not necessary to pass the balance element
-        self.__owner = owner    #private attributes
+        self.__owner = owner            #private attributes
         self.__balance = balance
+        self._public = "Public"         #public attributes
         
     def getOwner(self):
         print("Owner :", self.__owner)
@@ -28,7 +29,7 @@ print()
 #Property decorators
 class Circle:
     def __init__(self, radius):
-        self._radius = radius  # Private attribute
+        self._radius = radius  # public attribute   - can be accessed outside the class
 
     @property
     def radius(self):

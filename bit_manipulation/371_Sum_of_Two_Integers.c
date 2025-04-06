@@ -7,6 +7,7 @@ int main()
     int result;
     int carry = 1;
     
+    
     while(carry != 0)
     {
         carry = 0;
@@ -15,5 +16,5 @@ int main()
         a = result;
         b = carry;
     }
-    printf("Result %d\n", result);
+    printf("Result %d, carry %d\n", result, carry);
 }

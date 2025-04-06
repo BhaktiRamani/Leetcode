@@ -11,12 +11,15 @@
 # 'r+'	Read and write. Opens the file for both reading and writing.
 # 'w+'	Write and read. Opens the file for both writing and reading.
 
+
+#with open("File name", "mode") as file_name_for_usage
+
 with open("example.txt", "a") as file:
     file.write(" Hello World")
-    file.write("Hello World second line")
+    file.write(" Hello World second line")
     
 with open("example.txt", "r") as file:
     print(file.read())
-    print()
+  
 
     

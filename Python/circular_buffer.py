@@ -12,7 +12,7 @@ class CircularBuffer:
         return self.count == 0
     
     def enqueue(self, data):
-        print(f"Read Index : {self.read_Index} Write Index : {self.write_Index} W_Data : {self.buffer[self.write_Index]} R_Data : {self.buffer[self.read_Index]}")
+        # print(f"Read Index : {self.read_Index} Write Index : {self.write_Index} W_Data : {self.buffer[self.write_Index]} R_Data : {self.buffer[self.read_Index]}")
         if self.isFull():
             print("Buffer is full, overwriting the first element")
             self.read_Index = (self.read_Index + 1)% self.max_len
@@ -21,9 +21,8 @@ class CircularBuffer:
         self.buffer[self.write_Index] = data
         self.write_Index = (self.write_Index + 1) % self.max_len
         self.count = min(self.count + 1, self.max_len)
-        print(f"Read Index : {self.read_Index} Write Index : {self.write_Index} W_Data : {self.buffer[self.write_Index]} R_Data : {self.buffer[self.read_Index]}")
-        print()
-        
+        # print(f"Read Index : {self.read_Index} Write Index : {self.write_Index} W_Data : {self.buffer[self.write_Index]} R_Data : {self.buffer[self.read_Index]}")
+
     def dequeue(self):
         if self.isEmpty():
             print("buffer is empty")
@@ -52,7 +51,7 @@ cb.enqueue(2)
 cb.enqueue(3)
 cb.enqueue(4)
 cb.enqueue(5)
-cb.enqueue(6)
+# cb.enqueue(6)
 
 cb.display()
 
