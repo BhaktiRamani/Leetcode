@@ -46,9 +46,20 @@
     printf("set_bits %d\n", set_bits);\
 })
 
+#define REVERSE_BITS(num) ({ \
+   int res = 0;     \
+   int bit = 0; \
+   for (int i = 0; i < 32; i++) \
+   {\   
+        bit = num & 1;\
+        num = num >> 1;\
+        res = res << 1 | bit;\
+   }\
+   printf("Reverse bits : %d\n", res);\
+})
+
 int main()
 {
     SET_BIT_COUNT(2147483645);
-
 }
 
