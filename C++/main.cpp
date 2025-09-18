@@ -34,7 +34,7 @@ void string_recap()
     // can access-create substring 
     string substring = all.substr(4, 4);
     cout << substring << endl;
-
+ 
     //finding position
     int position = all.find("!+");
     cout << position << endl;
