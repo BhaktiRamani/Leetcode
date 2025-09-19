@@ -1,9 +1,16 @@
 #include<stdio.h>
 
+static int x = 10;
+
+// int foo()
+// {
+//     printf("%d\n", y);
+// }
+
 int main()
 {
-    int a = 7;
-    
-    
-    printf("a : %d %d\n", a/4, a%4 );
+    static int y = 20;
+    // foo();
+    printf("y\n");
+    printf("32\n");
 }

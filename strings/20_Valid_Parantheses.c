@@ -98,6 +98,61 @@ bool isValid(char* s) {
     }
     return true;
 }
+
+bool isValid2(char* s) {
+    
+    // s = "()"
+  
+    char *first = s;
+    // s++;
+    char *next = s++;
+    // printf("%c %c\n", *first, *s);
+
+    char buffer[8];
+    int buffer_len = 0;
+    while(*s!='\0')
+    {
+        if(*s == '(' || *s == '{' || *s == '[')
+        {
+            printf("Here %c\n", *s);
+            buffer[buffer_len] = *s;
+            buffer_len++;
+        }
+        s++;
+
+    }
+    s--;
+    buffer_len--;
+    // printf("%c \n", *s);
+
+    for(int i = 0; i<=buffer_len; i++)
+    {
+        printf("%c ", buffer[i]);
+    }
+
+    printf("\n");
+
+    while(buffer_len>=0)
+    {
+        printf("buffer[buffer_len] : %c *s : %c, buffer_len : %d\n", buffer[buffer_len], *s, buffer_len);
+        if(buffer[buffer_len] == '(' && *s == ')' || buffer[buffer_len] == '{' && *s == '}' || buffer[buffer_len] == '[' && *s == ']')
+        {
+            printf("Same\n");
+        }
+        else
+        {
+            printf("False");
+            return false;
+        }
+        buffer_len--;
+        s--;
+        
+    }
+
+    return true;
+    
+}
+
 int main()
 {
     
@@ -113,8 +168,13 @@ int main()
     // printf("len %d popped %c\n", st.len, popped);
     // printf("%d  %d\n", a, (int)d);
 
-    char str[6] = {'(', ')', '{', '}', '[', ']'};
-    bool status = isValid(str);
+    // char str[6] = {'(', ')', '{', '}', '[', ']'};
+    // bool status = isValid(str);
     
-    printf("str %s\n", BOOL(status));
+    // printf("str %s\n", BOOL(status));
+
+    char *str = "({})";
+    bool result = isValid2(str);
+    printf("Result : %d\n", result);
+    return 0;
 }

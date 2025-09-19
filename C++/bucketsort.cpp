@@ -2,14 +2,15 @@
 #include <vector>
 #include <algorithm>
 #include<set>
+#include<thread>
 using namespace std;
 
 #define MAX_NUM 256
 #define TABLE_SIZE 10
 
 typedef struct{
-    vector<vector<int>> vec;
-    
+    vector<set<int>> result;
+    // vector<std::mutex> bucket_guard;
 }buckets; 
 
 
@@ -54,31 +55,31 @@ bool hash_table_insert(int index, buckets* main_bucket, int num)
 {
     cout << "hash table insert" << endl;
 
-    if (index >= main_bucket->vec.size()) {
-        main_bucket->vec.resize(10);  // grow outer vector
+    if (index >= main_bucket->result.size()) {
+        main_bucket->result.resize(10);  // grow outer vector
     }
     // main_bucket->vec[2][0] = 22;
     
     // cout << main_bucket->vec[2][0] << endl;
-    main_bucket->vec[index].push_back(num);
+    main_bucket->result[index].insert(num);
 
-    cout << "value " << main_bucket->vec[index].back() << endl;
+    // cout << "value " << main_bucket->result[index].back() << endl;
     return true;
 }
 
 void swaping( buckets *main_bucket)
 {
-    cout << "Swap " << endl;
-    for (int i = 0; i < main_bucket->vec.size(); i++) {
-        for (int j = 0; j + 1 < main_bucket->vec[i].size(); j++) {
-            if (main_bucket->vec[i][j] > main_bucket->vec[i][j+1]) {
-                cout << "swap condition true: "
-                    << main_bucket->vec[i][j] << ", "
-                    << main_bucket->vec[i][j+1] << endl;
-                swap(main_bucket->vec[i][j], main_bucket->vec[i][j+1]);
-            }
-        }
-    }
+    // cout << "Swap " << endl;
+    // for (int i = 0; i < main_bucket->result.size(); i++) {
+    //     for (int j = 0; j + 1 < main_bucket->result[i].size(); j++) {
+    //         if (main_bucket->result[i][j] > main_bucket->result[i][j+1]) {
+    //             cout << "swap condition true: "
+    //                 << main_bucket->result[i][j] << ", "
+    //                 << main_bucket->result[i][j+1] << endl;
+    //             swap(main_bucket->result[i][j], main_bucket->result[i][j+1]);
+    //         }
+    //     }
+    // }
     cout << endl;
 
 }
@@ -87,17 +88,21 @@ void print_hash_table(const buckets& main_bucket)
 {
     cout << "\n=== Hash Table ===" << endl;
 
-    for (size_t i = 0; i < main_bucket.vec.size(); i++)
+    for (size_t i = 0; i < main_bucket.result.size(); i++)
     {
         cout << "Bucket " << i << ": ";
 
-        if (main_bucket.vec[i].empty()) {
-            cout << "(empty)";
-        } else {
-            for (size_t j = 0; j < main_bucket.vec[i].size(); j++) {
-                cout << main_bucket.vec[i][j];
-                if (j + 1 < main_bucket.vec[i].size()) cout << ", ";
-            }
+        // if (main_bucket.result[i].empty()) {
+        //     cout << "(empty)";
+        // } else {
+        //     for (size_t j = 0; j < main_bucket.result[i].size(); j++) {
+        //         cout << main_bucket.result[i](j);
+        //         if (j + 1 < main_bucket.result[i].size()) cout << ", ";
+        //     }
+        // }
+        for(auto val : main_bucket.result[i])
+        {
+            cout << val << " , ";
         }
         cout << endl;
     }
@@ -105,19 +110,43 @@ void print_hash_table(const buckets& main_bucket)
     cout << "==================\n" << endl;
 }
 
+void merge_buckets(buckets &bucket)
+{
+    set<int>list; 
+    // list.
 
-// ```
-// function bucketSort(input_array, k) :
-//   buckets[] : array of k empty sorted lists
-//   mins[] : array of k+1 minimum values for each list in buckets
-//   // bucket[m] holds (sorted) values from mins[m] to mins[m+1], so
-//   // mins[0]=0; mins[k]=INT_MAX;
-//   for i = 0 to length(input_array) do
-//     for j = 0 to k do
-// 		if(input_array[i]<mins[j]) // find bucket to insert 
-// 			insert input_array[i] into buckets[j-1]
-//   return the concatenation of buckets[0], ...., buckets[k-1]
-// 
+    // for(int i = 0; i < bucket.result.size(); i++)
+    //     list.insert(list.end(), bucket.result[i].begin(), bucket.result[i].end());
+
+    for(int i = 0; i < bucket.result.size(); i++)
+    {
+        for(auto val : bucket.result[i])
+        {
+            list.insert(val);
+        }
+    }
+
+    cout << "Sorted List : [";
+    for(auto val : list)
+    {
+        cout << val << " , ";
+    }
+    cout << "]" << endl;
+}
+
+void bucketSort2(int thread_id, vector<int>& vec, int no_of_threads, buckets &bucket)
+{
+    cout << "Bucket Sort" << endl;
+    for (int i = thread_id; i < vec.size(); i += no_of_threads) {
+        cout << "Thread " << thread_id 
+             << " got element " << vec[i] << endl;
+             int index = right_most_number(vec[i]);
+             cout << "Index : " << index << " val : " << vec[i] << endl;
+             hash_table_insert(index, &bucket, vec[i]);
+    }
+    // inser in hash table
+    cout << endl;
+}
 
 typedef struct{
     vector<set<int>>buckets;
@@ -159,19 +188,20 @@ void hash_func(elements* data, vector<int> input_arr)
 
 }
 
-void hash_bucket_insert(vector<int> input_arr, elements *data)
+void hash_bucket_insert(vector<int> input_arr, elements *data, int no_of_threads, int num)
 {
-    for(int val : input_arr)
-    {
+    
+    // for(int val : input_arr)
+    // {
         for(int j = 0; j < data->number_of_buckets; j++)
         {
-            if(val >= data->limits[j] && val < data->limits[j+1])
+            if(num >= data->limits[j] && num < data->limits[j+1])
             {
-                data->buckets[j].insert(val);
+                data->buckets[j].insert(num);
                 break;  // once inserted, stop inner loop
             }
         }
-    }
+    // }
 }
 
 void print_hash_buckets(elements *data)
@@ -207,7 +237,7 @@ void result(elements *data)
     cout << endl;
 }
 
-void bucketSort(vector<int> input_arr, int k)
+void bucketSort(vector<int> input_arr, int k, int no_of_threads)
 {
 
     elements data; 
@@ -215,107 +245,66 @@ void bucketSort(vector<int> input_arr, int k)
     data.buckets.resize(k);      
 
     hash_func(&data, input_arr);      // compute limits
-    hash_bucket_insert(input_arr, &data);  // insert values into buckets
+
+    //can be parallized
+    // create no_of_threads
+
+    // give elements sequentially to different threads
+
+
+    for(int i = 0; i < input_arr.size(); i++)
+    {
+        hash_bucket_insert(input_arr, &data, no_of_threads, input_arr[i]);  // insert values into buckets
+    }
+
+
     print_hash_buckets(&data);             // print bucket contents
+
+
     result(&data);                         // print sorted result
 
-    // int number_of_buckets = k;
-    // vector<set<int>> buckets(number_of_buckets);
-
-    // vector<int> limits;
-
-    // int min = *std::min_element(input_arr.begin(), input_arr.end());
-    // int max = *std::max_element(input_arr.begin(), input_arr.end());
-
-    // cout << "Min element : " << min << " Max element : " << max << endl;
-    // cout << "Number of buckets : " << number_of_buckets << endl;
-    // int width = (max - min )/ number_of_buckets; 
-
-    // cout << "Width : " << width << endl;
-
-    // for(int i = 0; i < number_of_buckets ; i++)
-    // {
-    //     limits.push_back(min);
-    //     min = min + width;
-    // }
-    // limits.push_back(max + 1);
-    // for(int i = 0; i < number_of_buckets + 1; i++)
-    // {
-    //     cout << limits[i] << endl;
-    // }
-
-
-    // for(int i = 0; i < input_arr.size(); i++)
-    // {
-    //     for(int j = 0; j < limits.size(); j++)
-    //     {
-    //         if(input_arr[i] >= limits[j] && input_arr[i] <limits[j+1])
-    //         {
-    //             cout << "Bucket no : " << j << " Val : " << input_arr[i] << endl;
-    //             buckets[j].insert(input_arr[i]);
-    //         }
-    //     }
-    // }
-
-    // cout << "============ Buckets ==========" << endl;
-    // for (int i = 0; i < buckets.size(); i++) {
-    //     cout << "bucket " << i << " : ";
-    //     bool first = true;
-    //     for (const int& element : buckets[i]) {
-    //         if (!first) cout << " ,";
-    //         cout << element;
-    //         first = false;
-    //     }
-    //     cout << endl;
-    // }
-    // cout << "==================\n" << endl;
-
-    // set<int> result; 
-
-    // for(int i = 0; i < number_of_buckets; i++)
-    // {
-    //     result.insert(buckets[i].begin(), buckets[i].end());
-    // }
-
-    // for(auto i : result)
-    // {
-    //     cout << i << endl;
-    // }
+    cout << endl;
     return; 
 }
 
 
+
 int main()
 {
-    int arr[5];
-    int nums[5] = {10,2,3,1,4};
+
 
     // vector<int> vec = {1,2,4,6,7,21,23,45,10,91};
-    vector<int> vec = {21,23,45,10,91, 4,6,7, 2, 1};
-    // buckets main_bucket;
-    
 
-    // for(int i = 0; i< vec.size(); i++)
-    // {
+    buckets main_bucket;
+
+    vector<int> vec = {21,23,45,10,91,4,6,7,2,1};
+    int no_of_threads = 3;
+
+    // store all threads
+    vector<thread> threads;
+
+    // create threads
+    for (int t = 0; t < no_of_threads; t++) {
         
-    //     // int index = right_most_number(vec[i]);
-    //     cout << "Index : " << index << " Vec : " << vec[i] << endl;
-        
-    //     // inser in hash table
-    //     hash_table_insert(index, &main_bucket, vec[i]);
+        threads.emplace_back(bucketSort2, t, ref(vec), no_of_threads, main_bucket);
+    }
 
-    //     cout << endl;
-
-    // }
-
-    // print_hash_table(main_bucket);
-
-    // swaping(&main_bucket);
-
-    // print_hash_table(main_bucket);
+    // wait for all threads to finish
+    for (auto& th : threads) {
+        th.join();
+    }
 
 
-    bucketSort(vec, 5);
+    print_hash_table(main_bucket);
+
+    // merge all the buckets 
+    merge_buckets(main_bucket);
+
+
+
+
+
+    // bucketSort(vec, 3, 3);
 
 
  
