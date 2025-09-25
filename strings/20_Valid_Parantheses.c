@@ -153,6 +153,109 @@ bool isValid2(char* s) {
     
 }
 
+typedef struct{
+    char buffer[8];
+    int len;
+}stack;
+
+void push2(stack *arr, char element)
+{
+    arr -> buffer[arr -> len] = element;
+    arr -> len += 1;
+}
+
+char pop2(stack *arr)
+{
+    arr -> len -= 1;
+    char element = arr -> buffer[arr -> len];
+    return element;
+}
+
+void print_stack(stack *arr)
+{
+   
+    for(int i = 0; i < arr -> len; i++)
+    {
+        printf("%c , ", arr -> buffer[i]);
+    }
+    printf("\n");
+}
+
+bool hash(char a, char b)
+{
+    if(a == '(' && b == ')')
+        return true;
+    if(a == '{' && b == '}')
+        return true;
+    if(a == '[' && b == ']')
+        return true;
+    return false;
+}
+bool isValid3(char* s) {
+
+    int length = strlen(s);
+
+    if(length%2 != 0)
+    {
+        return false;
+    }
+    stack left_arr;
+    stack right_arr;
+
+    left_arr.len = 0;
+    right_arr.len = 0;
+
+    for(int i = 0; i < length/2; i++)
+    {
+        if(s[i] == '(' || s[i] == '{' || s[i] == '[')
+        {
+            printf("Push %c left arr with index %d\n", s[i], left_arr.len);
+            push2(&left_arr, s[i]);
+        }
+        else
+        {
+            printf("Nothing\n");
+        }
+    }
+
+    
+    for(int i = length - 1; i >= length/2; i--)
+    {
+       
+        if(s[i] == ')' || s[i] == '}' || s[i] == ']')
+        {
+            printf("Push %c right arr with index %d\n", s[i], right_arr.len);
+            push2(&right_arr, s[i]);
+        }
+      
+    }
+    printf("\n");
+    printf("Left arr : ");
+    print_stack(&left_arr);
+    printf("Right arr : ");
+    print_stack(&right_arr);
+    bool result; 
+    printf("Left arr.len : %d\n", left_arr.len);
+    printf("Right arr.len : %d\n", right_arr.len);
+    printf("\n");
+    for(int i = 0; i < length/2; i++)
+    {
+        char a = pop2(&left_arr);
+        char b = pop2(&right_arr);
+
+        printf("a : %c b : %c\n", a, b);
+        result = hash(a,b);
+        if(result == false)
+        {
+            return false; 
+        }
+    }
+
+    return true;
+
+    
+}
+
 int main()
 {
     
@@ -173,8 +276,13 @@ int main()
     
     // printf("str %s\n", BOOL(status));
 
-    char *str = "({})";
-    bool result = isValid2(str);
-    printf("Result : %d\n", result);
+    // char *str = "({})";
+    // bool result = isValid2(str);
+    // printf("Result : %d\n", result);
+
+
+    int result = isValid3("()[]{}");
+    printf("Result is : %d\n", result);
+
     return 0;
 }

@@ -55,6 +55,7 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "chrono": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "__config": "c"
     }
 }
