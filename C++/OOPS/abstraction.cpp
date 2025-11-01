@@ -17,6 +17,10 @@ class animal{
     public:
         //IMP
         virtual void sound() const = 0;
+
+        void speak(){
+            sound();
+        }
 };
 
 class dog : public animal{
@@ -30,6 +34,18 @@ class dog : public animal{
         }
 };
 
+class cat : public animal{
+    private:
+        string name = "Cat : ";
+    public:
+        //IMP
+        void sound() const override
+        {
+            cout << name << "Meow Meow!" << endl;
+        }
+};
+
+
 
 int main()
 {   
@@ -37,5 +53,11 @@ int main()
    //animal a;  // will throw an error
     dog d;
     animal &a = d;
-    a.sound();
+    a.speak();
+
+
+    cat c; 
+    animal &b = c; 
+    b.speak();
+
 }
